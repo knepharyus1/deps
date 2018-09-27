@@ -4,7 +4,7 @@ urlfile="./urls"
 datadir="./data"
 
 TARGET_BRANCH=${TARGET_BRANCH:-build}
-REPO=https://git:${GITHUB_TOKEN}@github.com/clustellar/deps.git
+REPO=https://taemon1337:${GITHUB_TOKEN}@github.com/clustellar/deps.git
 NEWORIGIN=origin-build
 
 echo "[GIT] $REPO (branch=$TARGET_BRANCH)"
