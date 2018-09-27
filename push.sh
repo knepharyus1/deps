@@ -6,14 +6,14 @@ setup_git() {
 }
 
 commit() {
-  git checkout master
+  git checkout -b build
   git add ./data
   git commit -m "Travis build: $TRAVIS_BUILD_NUMBER"
 }
 
 upload() {
   git remote add origin https://${GH_TOKEN}@github.com/clustellar/deps.git > /dev/null 2>&1
-  git push --quiet --set-upstream origin master
+  git push --quiet --set-upstream origin build
 }
 
 setup_git
