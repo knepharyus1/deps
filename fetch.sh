@@ -12,11 +12,11 @@ fetch_urls() {
 
 git_push() {
   TARGET_BRANCH=${TARGET_BRANCH:-build}
-  REPO=`git config remote.origin.url`
-  SSH_REPO=${REPO/git@github.com/${GITHUB_TOKEN}@github.com}
+  REPO=https://git:${GITHUB_TOKEN}@github.com/clustellar/deps.git
   git config user.name "Travis CI"
   git config user.email "$COMMIT_AUTHOR_EMAIL"
-  git push $SSH_REPO $TARGET_BRANCH
+  echo "[GIT] push $REPO $TARGET_BRANCH"
+  git push $REPO $TARGET_BRANCH
 }
 
 
