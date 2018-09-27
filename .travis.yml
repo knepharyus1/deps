@@ -1,5 +1,11 @@
+language: generic
+
+addons:
+  apt:
+    packages: libcurl4-openssl-dev
+
 deploy:
-  provider: script
-  script: bash fetch.sh
-  on:
-    branch: master
+  - provider: script
+    script: bash fetch.sh
+    on:
+      branch: master
