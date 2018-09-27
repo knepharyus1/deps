@@ -3,6 +3,19 @@
 urlfile="./urls"
 datadir="./data"
 
+TARGET_BRANCH=${TARGET_BRANCH:-build}
+REPO=https://git:${GITHUB_TOKEN}@github.com/clustellar/deps.git
+NEWORIGIN=origin-build
+
+echo "[GIT] $REPO (branch=$TARGET_BRANCH)"
+
+git_setup() {
+  git config user.name "Travis CI"
+  git config user.email "$COMMIT_AUTHOR_EMAIL"
+  git remote add $NEWORIGIN $REPO
+  git checkout -b $TARGET_BRANCH
+}
+
 fetch_urls() {
   for url in $(cat $urlfile); do
     ofile=$(echo $url | md5sum | cut -d' ' -f1)
@@ -11,14 +24,12 @@ fetch_urls() {
 }
 
 git_push() {
-  TARGET_BRANCH=${TARGET_BRANCH:-build}
-  REPO=https://git:${GITHUB_TOKEN}@github.com/clustellar/deps.git
-  git config user.name "Travis CI"
-  git config user.email "$COMMIT_AUTHOR_EMAIL"
-  echo "[GIT] push $REPO $TARGET_BRANCH"
-  git push $REPO $TARGET_BRANCH
+  git add $datadir
+  git commit -m "Travis build: $TRAVIS_BUILD_NUMBER"
+  git push -u $NEWORIGIN $TARGET_BRANCH
 }
 
 
+git_setup
 fetch_urls
 git_push
