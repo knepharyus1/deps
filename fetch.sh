@@ -8,4 +8,3 @@ for url in $(cat $urlfile); do
   curl -k $url -o $datadir/$ofile
 done
 
-./push.sh

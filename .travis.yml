@@ -4,8 +4,16 @@ addons:
   apt:
     packages: libcurl4-openssl-dev
 
-deploy:
-  - provider: script
-    script: bash fetch.sh
-    on:
-      branch: master
+jobs:
+  include:
+    - state: fetch
+      script: fetch.sh
+      on:
+        branch: master
+    - state: push
+      skip-cleanup: true
+      github-token: $GITHUB_TOKEN
+      target-branch: build
+      on:
+        branch: master
+
