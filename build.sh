@@ -21,7 +21,7 @@ fetch_urls() {
   for url in $(cat $urlfile); do
     ofile=$(echo $url | md5sum | cut -d' ' -f1)
     echo "[GET] $ofile - $url"
-    curl -kv $url -o $datadir/$ofile
+    curl -k $url -o $datadir/$ofile
   done
 }
 
@@ -29,10 +29,11 @@ git_push() {
   echo "[GIT] git push $TARGET_BRANCH"
   git add $datadir
   git commit -m "Travis build: $TRAVIS_BUILD_NUMBER"
-  git push -u $NEWORIGIN $TARGET_BRANCH
+  git push --force -u $NEWORIGIN $TARGET_BRANCH
 }
 
 
 git_setup
 fetch_urls
 git_push
+exit 0
