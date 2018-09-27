@@ -7,7 +7,7 @@ addons:
 jobs:
   include:
     - state: fetch
-      script: fetch.sh
+      script: bash ./fetch.sh
       on:
         branch: master
     - state: push
