@@ -6,8 +6,8 @@ addons:
 
 jobs:
   include:
-    - state: fetch
-      script: bash ./fetch.sh
+    - state: build
+      script: bash ./build.sh
       on:
         branch: master
 
